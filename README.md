@@ -1,6 +1,9 @@
 # twitter
 
-源repo: https://github.com/SimonAKing/Gwitter 
+> [!important]
+> 该仓库为搭建源项目测试及自用，源项目见: https://github.com/SimonAKing/Gwitter 
+
+![](https://i.urusai.cc/3V0Ib.png)
 
 ## 安装
 
