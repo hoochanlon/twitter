@@ -57,3 +57,68 @@ let config = {
 * 访问 https://github.com/settings/developers > OAuth Apps > New OAuth App
   * Homepage URL，例如：hoochanlon.github.io/twitter
   * Authorization callback URL，例如：hoochanlon.github.io/twitter
+
+
+## 自动化部署
+
+https://github.com/hoochanlon/twitter/settings/pages > Build and deployment > Github Action
+
+创建 .github\workflows\action.yml
+
+```yml
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main          # 如果你的默认分支不是 main，就改成 master 或其它分支名
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup pnpm (use same version as local)
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.22.0        
+          run_install: true
+          args: --frozen-lockfile
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+```
