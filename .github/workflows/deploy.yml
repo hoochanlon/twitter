@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main   # 或你实际使用的分支，比如 master
+      - main          # 如果用的是其它分支，比如 master，就改成 master
   workflow_dispatch: {}
 
 permissions:
@@ -12,7 +12,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: false
 
 jobs:
@@ -36,16 +36,12 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build
-        env:
-          # 如果你给 GitHub Pages 设置了自定义域名或仓库路径，需要和 rsbuild.config.mjs 中 assetPrefix 一致
-          # 例如仓库路径为 /twitter/ 且用相对路径，这里可以不设；如果你用环境变量控制就在此传入
-          # ASSET_PREFIX: './'
         run: pnpm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: dist
 
   deploy:
     needs: build
