@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main          # 如果用的是其它分支，比如 master，就改成 master
+      - main          # 如果你的默认分支不是 main，就改成 master 或其它分支名
   workflow_dispatch: {}
 
 permissions:
@@ -27,13 +27,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: pnpm
 
-      - name: Setup pnpm
-        run: corepack enable
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Setup pnpm (use same version as local)
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.22.0        # 这里改成你本地 `pnpm -v` 的版本号
+          run_install: true
+          args: --frozen-lockfile
 
       - name: Build
         run: pnpm run build
