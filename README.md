@@ -32,7 +32,7 @@ pnpm run dev
 
 ```
  output: {
-    assetPrefix: isProd ? 'https://blog.hoochanlon.moe/twitter' : './',
+    assetPrefix: isProd ? 'https://hoochanlon.github.io/twitter' : './',
   }
 ```
 

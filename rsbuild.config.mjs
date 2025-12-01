@@ -57,6 +57,6 @@ export default defineConfig({
     ],
   },
   output: {
-    assetPrefix: isProd ? 'hoochanlon.github.io/twitter' : './',
+    assetPrefix: isProd ? 'blog.hoochanlon.moe/twitter' : './',
   },
 });
