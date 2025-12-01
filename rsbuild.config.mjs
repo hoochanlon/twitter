@@ -57,6 +57,6 @@ export default defineConfig({
     ],
   },
   output: {
-    assetPrefix: isProd ? 'https://twitter.hoochanlon.moe' : './',
+    assetPrefix: isProd ? 'twitter-github.vercel.app' : './',
   },
 });
