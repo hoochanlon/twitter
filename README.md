@@ -64,68 +64,27 @@ let config = {
 * 访问 https://github.com/settings/developers > OAuth Apps > New OAuth App
   * Homepage URL，例如：hoochanlon.github.io/twitter
   * Authorization callback URL，例如：hoochanlon.github.io/twitter
+* 自动化部署
+ * https://github.com/hoochanlon/twitter/blob/main/.github/workflows/deploy.yml
 
 
-## 自动化部署
+## 增强: 将 VSCode 打造成 CMS
 
-https://github.com/hoochanlon/twitter/settings/pages > Build and deployment > Github Action
+tofrankie/github-blogger：https://github.com/tofrankie/github-blogger
 
-创建 .github\workflows\action.yml
+1. 从 [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Frankie.github-blogger) 或 [Open VSX](https://open-vsx.org/extension/frankie/github-blogger) 安装
+1. 生成你的 [GitHub Personal Access Token (classic)](https://github.com/settings/tokens)
+1. 在命令面板输入 `Configure GitHub Blogger` 完成必要配置（命令面板快捷键 `Cmd + Shift + P` / `Ctrl + Shift + P`）
+1. 在命令面板输入 `Open GitHub Blogger` 打开编辑器，开始写作！
 
-```yml
-name: Deploy to GitHub Pages
-
-on:
-  push:
-    branches:
-      - main          # 如果你的默认分支不是 main，就改成 master 或其它分支名
-  workflow_dispatch: {}
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: false
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Setup pnpm (use same version as local)
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.22.0        
-          run_install: true
-          args: --frozen-lockfile
-
-      - name: Build
-        run: pnpm run build
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
 ```
+{
+  "github-blogger.token": "your-github-token",
+  "github-blogger.user": "your-github-username",
+  "github-blogger.repo": "your-github-repo",
+  "github-blogger.branch": "main"
+}
+```
+
+
+
