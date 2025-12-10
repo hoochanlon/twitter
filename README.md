@@ -72,9 +72,12 @@ let config = {
 
 tofrankie/github-blogger：https://github.com/tofrankie/github-blogger
 
+> [!tip]
+>  命令面板快捷键 `Cmd + Shift + P` / `Ctrl + Shift + P`
+
 1. 从 [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Frankie.github-blogger) 或 [Open VSX](https://open-vsx.org/extension/frankie/github-blogger) 安装
 1. 生成你的 [GitHub Personal Access Token (classic)](https://github.com/settings/tokens)
-1. 在命令面板输入 `Configure GitHub Blogger` 完成必要配置（命令面板快捷键 `Cmd + Shift + P` / `Ctrl + Shift + P`）
+1. 在命令面板输入 `Configure GitHub Blogger` 完成必要配置
 1. 在命令面板输入 `Open GitHub Blogger` 打开编辑器，开始写作！
 
 ```
